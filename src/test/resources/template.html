@@ -13,6 +13,7 @@
 
         <h1>YOUR EXAMPLE THYMELEAF PDF</h1>
         <p th:text="#{title}">Welcome to our grocery store!</p>
+        <p th:text="${data.getFirstname()}">Welcome to our grocery store!</p>
 
         <p>Dear [[${data.getFirstname()}]] [[${data.getLastname()}]],</p>
 
