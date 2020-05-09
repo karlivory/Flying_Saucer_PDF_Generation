@@ -12,6 +12,7 @@
         <div th:include="letterhead::letterhead"></div>
 
         <h1>YOUR EXAMPLE THYMELEAF PDF</h1>
+        <p th:text="#{title}">Welcome to our grocery store!</p>
 
         <p>Dear [[${data.getFirstname()}]] [[${data.getLastname()}]],</p>
 

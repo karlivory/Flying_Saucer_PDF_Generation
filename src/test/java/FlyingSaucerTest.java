@@ -7,6 +7,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.*;
 import java.nio.file.FileSystems;
+import java.util.Locale;
 
 import static com.itextpdf.text.pdf.BaseFont.EMBEDDED;
 import static com.itextpdf.text.pdf.BaseFont.IDENTITY_H;
@@ -53,6 +54,7 @@ public class FlyingSaucerTest {
 
         Context context = new Context();
         context.setVariable("data", data);
+        context.setLocale(new Locale("ee"));
 
         // Flying Saucer needs XHTML - not just normal HTML. To make our life
         // easy, we use JTidy to convert the rendered Thymeleaf template to
