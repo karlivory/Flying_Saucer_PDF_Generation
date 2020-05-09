@@ -99,7 +99,23 @@ table {
     width: 100%;
 }
 
-hr {
+.package_table table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.package_table td, .package_table th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.package_table tr:nth-child(1) {
+    background-color: #dddddd;
+}
+
+ hr {
     background-color: #000000;
     border: dashed #000000 0.5px;
     height: 1px;

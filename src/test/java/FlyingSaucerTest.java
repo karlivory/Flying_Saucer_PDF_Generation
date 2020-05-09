@@ -6,7 +6,10 @@ import org.w3c.tidy.Tidy;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static com.itextpdf.text.pdf.BaseFont.EMBEDDED;
@@ -54,7 +57,7 @@ public class FlyingSaucerTest {
 
         Context context = new Context();
         context.setVariable("data", data);
-        context.setLocale(new Locale("ee"));
+        context.setLocale(new Locale("en"));
 
         // Flying Saucer needs XHTML - not just normal HTML. To make our life
         // easy, we use JTidy to convert the rendered Thymeleaf template to
@@ -92,7 +95,35 @@ public class FlyingSaucerTest {
         data.setStreet("Example Street 1");
         data.setZipCode("12345");
         data.setCity("Example City");
+        List<Product> products = new ArrayList<Product>();
+        products.add(new Product("Footwear, new, handmade", 65, "EUR", 508031));
+        products.add(new Product("Sunglasses", 12.50, "EUR", 664397));
+        products.add(new Product("Toy", 6, "EUR", 663271));
+        products.add(new Product("Toy", 4, "EUR", 593368));
+        data.setProducts(products);
         return data;
+    }
+
+    static class Product {
+
+        private String description;
+        private double value;
+        private String currency;
+        private int HS;
+
+        public Product(String description, double value, String currency, int HS) {
+            this.description = description;
+            this.currency = currency;
+            this.value = value;
+            this.HS = HS;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
+        public double getValue() { return this.value; }
+        public String getCurrency() {return this.currency; }
+        public int getHS() {return this.HS; }
     }
 
     static class Data {
@@ -101,7 +132,13 @@ public class FlyingSaucerTest {
         private String street;
         private String zipCode;
         private String city;
+        private List<Product> products;
 
+        public List<Product> getProducts() {
+            return products;
+        }
+
+        public String getName() { return firstname + " " + lastname; }
         public String getFirstname() {
             return firstname;
         }
@@ -140,6 +177,19 @@ public class FlyingSaucerTest {
 
         public void setCity(String city) {
             this.city = city;
+        }
+
+        public void setProducts(List<Product> products) {this.products = products;}
+
+        public double getTotalValue(){
+            double total = 0;
+            for(Product p : products){
+                total += p.value;
+            }
+            return total;
+        }
+        public double calculateVat(){
+            return getTotalValue() * 0.2;
         }
     }
 
